@@ -1,0 +1,28 @@
+C:\Users\salak301\Desktop\Proyecto\bin\Debug\net8.0\Proyecto.exe
+C:\Users\salak301\Desktop\Proyecto\bin\Debug\net8.0\Proyecto.deps.json
+C:\Users\salak301\Desktop\Proyecto\bin\Debug\net8.0\Proyecto.runtimeconfig.json
+C:\Users\salak301\Desktop\Proyecto\bin\Debug\net8.0\Proyecto.dll
+C:\Users\salak301\Desktop\Proyecto\bin\Debug\net8.0\Proyecto.pdb
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\Proyecto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfoInputs.cache
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfo.cs
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\Proyecto.csproj.CoreCompileInputs.cache
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\Proyecto.dll
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\refint\Proyecto.dll
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\Proyecto.pdb
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\Proyecto.genruntimeconfig.cache
+C:\Users\salak301\Desktop\Proyecto\obj\Debug\net8.0\ref\Proyecto.dll
+D:\Programacion y DB\Desarrollo De Software\Proyecto\bin\Debug\net8.0\Proyecto.exe
+D:\Programacion y DB\Desarrollo De Software\Proyecto\bin\Debug\net8.0\Proyecto.deps.json
+D:\Programacion y DB\Desarrollo De Software\Proyecto\bin\Debug\net8.0\Proyecto.runtimeconfig.json
+D:\Programacion y DB\Desarrollo De Software\Proyecto\bin\Debug\net8.0\Proyecto.dll
+D:\Programacion y DB\Desarrollo De Software\Proyecto\bin\Debug\net8.0\Proyecto.pdb
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\Proyecto.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfoInputs.cache
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfo.cs
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\Proyecto.csproj.CoreCompileInputs.cache
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\Proyecto.dll
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\refint\Proyecto.dll
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\Proyecto.pdb
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\Proyecto.genruntimeconfig.cache
+D:\Programacion y DB\Desarrollo De Software\Proyecto\obj\Debug\net8.0\ref\Proyecto.dll
