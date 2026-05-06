@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentacion de consola", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pruebas_unitarias", "pruebas_unitarias\pruebas_unitarias.csproj", "{C20CCB76-8A33-4F27-A2D3-4EEA2C92C99C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP_Servicios", "ASP_Servicios\ASP_Servicios.csproj", "{D3B9666D-43A0-4E1F-9D61-E1D3617AA0FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C20CCB76-8A33-4F27-A2D3-4EEA2C92C99C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C20CCB76-8A33-4F27-A2D3-4EEA2C92C99C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C20CCB76-8A33-4F27-A2D3-4EEA2C92C99C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B9666D-43A0-4E1F-9D61-E1D3617AA0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B9666D-43A0-4E1F-9D61-E1D3617AA0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B9666D-43A0-4E1F-9D61-E1D3617AA0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B9666D-43A0-4E1F-9D61-E1D3617AA0FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

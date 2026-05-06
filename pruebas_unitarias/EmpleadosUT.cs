@@ -5,7 +5,7 @@ using lib_aplicaciones.Interfaces;
 namespace pruebas_unitarias;
 
 [TestClass]
-public class CargosUT
+public class EmpleadosUT
 {
     IConexion conexion = new Conexion();
 
@@ -20,26 +20,27 @@ public class CargosUT
     // 1. SELECT - Listar
     [TestMethod]
     [Priority(1)]
-    public void ListarCargos()
+    public void ListarEmpleados()
     {
-        Console.WriteLine("Listar cargos");
-        var lista_cargos = conexion.Cargos!.ToList();
-        Assert.IsNotNull(lista_cargos);
+        Console.WriteLine("Listar Empleados");
+        var lista_empleados = conexion.Empleados!.ToList();
+        Assert.IsNotNull(lista_empleados);
     }
 
     // 2. INSERT - Add
     [TestMethod]
     [Priority(2)]
-    public void InsertarCargo()
+    public void InsertarEmpleado()
     {
-        Console.WriteLine("Insertar cargo");
-        Cargos nueva = new Cargos
+        Console.WriteLine("Insertar Empleado");
+        Empleados nueva = new Empleados
         {
-            Nombre = "Cargo Test",
-            Descripcion = "Test",
+            Nombre = "Empleado Test",
+            Cargo = 1,
+            Turno = (Turnos)1
         };
 
-        conexion.Cargos!.Add(nueva);
+        conexion.Empleados!.Add(nueva);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);// confirmó que guardó algo
@@ -48,16 +49,16 @@ public class CargosUT
     // 3. UPDATE - Modificar
     [TestMethod]
     [Priority(3)]
-    public void ActualizarCargo()
+    public void ActualizarEmpleado()
     {
-        Console.WriteLine("Actualizar Cargo");
+        Console.WriteLine("Empleado Promocion");
 
         // Busca un registro existente para modificarlo
-        var Cargos = conexion.Cargos!.FirstOrDefault();
-        Assert.IsNotNull(Cargos); // que exista algo en la BD
+        var Empleados = conexion.Empleados!.FirstOrDefault();
+        Assert.IsNotNull(Empleados); // que exista algo en la BD
 
-        Cargos.Nombre = "cargo modificado";
-        conexion.Cargos!.Update(Cargos);
+        Empleados.Nombre = "Empleado modificado";
+        conexion.Empleados!.Update(Empleados);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);
@@ -67,16 +68,16 @@ public class CargosUT
     // 4. DELETE - Remove
     [TestMethod]
     [Priority(4)]
-    public void QuitarCargo()
+    public void QuitarEmpleado()
     {
-        Console.WriteLine("Eliminar Cargo");
+        Console.WriteLine("Eliminar Empleado");
 
-        var Cargos = conexion.Cargos!
-            .OrderByDescending(c => c.Id)
-            .FirstOrDefault(c => c.Nombre == "Cargo Test");
-        Assert.IsNotNull(Cargos);
+        var Empleados = conexion.Empleados!
+            .OrderByDescending(p => p.Id)
+            .FirstOrDefault(p => p.Nombre == "Empleado Test");
+        Assert.IsNotNull(Empleados);
 
-        conexion.Cargos!.Remove(Cargos);
+        conexion.Empleados!.Remove(Empleados);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);

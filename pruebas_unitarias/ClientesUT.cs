@@ -1,11 +1,11 @@
+using lib_aplicaciones.Entidades;
 using lib_aplicaciones.Implementaciones;
 using lib_aplicaciones.Interfaces;
-using lib_aplicaciones.Entidades;
 
 namespace pruebas_unitarias;
 
 [TestClass]
-public class TarifasUT
+public class ClientesUT
 {
     IConexion conexion = new Conexion();
 
@@ -20,26 +20,26 @@ public class TarifasUT
     // 1. SELECT - Listar
     [TestMethod]
     [Priority(1)]
-    public void ListarTarifas()
+    public void ListarClientes()
     {
-        Console.WriteLine("Listar Tarifas");
-        var lista_tarifas = conexion.Tarifas!.ToList();
-        Assert.IsNotNull(lista_tarifas);
+        Console.WriteLine("Listar clientes");
+        var lista_clientes = conexion.Clientes!.ToList();
+        Assert.IsNotNull(lista_clientes);
     }
 
     // 2. INSERT - Add
     [TestMethod]
     [Priority(2)]
-    public void InsertarTarifa()
+    public void InsertarCliente()
     {
-        Console.WriteLine("Insertar Tarifa");
-        Tarifas nueva = new Tarifas
+        Console.WriteLine("Insertar Cliente");
+        Clientes nueva = new Clientes
         {
-            TipoVehiculo = Tipos.Moto,
-            PrecioHora = 3333,
+            Nombre = "Cliente Test",
+            Nacionalidad = "Test",
         };
 
-        conexion.Tarifas!.Add(nueva);
+        conexion.Clientes!.Add(nueva);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);// confirmó que guardó algo
@@ -48,16 +48,16 @@ public class TarifasUT
     // 3. UPDATE - Modificar
     [TestMethod]
     [Priority(3)]
-    public void ActualizarTarifa()
+    public void ActualizarCliente()
     {
-        Console.WriteLine("Actualizar Tarifa");
+        Console.WriteLine("Actualizar Cliente");
 
         // Busca un registro existente para modificarlo
-        var Tarifas = conexion.Tarifas!.FirstOrDefault();
-        Assert.IsNotNull(Tarifas); // que exista algo en la BD
+        var Clientes = conexion.Clientes!.FirstOrDefault();
+        Assert.IsNotNull(Clientes); // que exista algo en la BD
 
-        Tarifas.PrecioHora = 3333;
-        conexion.Tarifas!.Update(Tarifas);
+        Clientes.Nombre = "Cliente modificado";
+        conexion.Clientes!.Update(Clientes);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);
@@ -67,19 +67,18 @@ public class TarifasUT
     // 4. DELETE - Remove
     [TestMethod]
     [Priority(4)]
-    public void QuitarTarifa()
+    public void QuitarCliente()
     {
-        Console.WriteLine("Eliminar Tarifa");
+        Console.WriteLine("Eliminar Cliente");
 
-        var Tarifas = conexion.Tarifas!
-            .OrderByDescending(t => t.Id)
-            .FirstOrDefault(t => t.PrecioHora == 3333);
-        Assert.IsNotNull(Tarifas);
+        var Clientes = conexion.Clientes!
+            .OrderByDescending(c => c.Id)
+            .FirstOrDefault(c => c.Nombre == "Cliente Test");
+        Assert.IsNotNull(Clientes);
 
-        conexion.Tarifas!.Remove(Tarifas);
+        conexion.Clientes!.Remove(Clientes);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);
     }
 }
-

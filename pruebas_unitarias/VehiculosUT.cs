@@ -5,7 +5,7 @@ using lib_aplicaciones.Entidades;
 namespace pruebas_unitarias;
 
 [TestClass]
-public class SedesUT
+public class VehiculosUT
 {
     IConexion conexion = new Conexion();
 
@@ -13,33 +13,32 @@ public class SedesUT
     [TestInitialize]
     public void Init()
     {
-        conexion.StringConexion = 
+        conexion.StringConexion =
             "server=localhost;integrated Security=True;TrustServerCertificate=true;database=db_parqueadero;";
     }
 
     // 1. SELECT - Listar
     [TestMethod]
-    [Priority(1)]
-    public void ListarSedes()
+    public void Listar()
     {
-        Console.WriteLine("Listar sedes");
-        var lista_sedes = conexion.Sedes!.ToList();
-        Assert.IsNotNull(lista_sedes);
+        Console.WriteLine("Listar Vehiculos");
+        var lista_vehiculos = conexion.Vehiculos!.ToList();
+        Assert.IsNotNull(lista_vehiculos);
     }
 
     // 2. INSERT - Add
     [TestMethod]
-    [Priority(2)]
-    public void InsertarSede()
+    public void Insertar()
     {
-        Console.WriteLine("Insertar sede");
-        Sedes nueva = new Sedes
+        Console.WriteLine("Insertar Vehiculo");
+        Vehiculos nueva = new Vehiculos
         {
-            Nombre = "Sede Test",
-            Direccion = "cra 80d",
+            Tipo = Tipos.Patineta,
+            Combustion = Combustiones.Gas,
+            Cliente = 1
         };
 
-        conexion.Sedes!.Add(nueva);
+        conexion.Vehiculos!.Add(nueva);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);// confirmó que guardó algo
@@ -47,17 +46,16 @@ public class SedesUT
 
     // 3. UPDATE - Modificar
     [TestMethod]
-    [Priority(3)]
-    public void ActualizarSede()
+    public void Actualizar()
     {
-        Console.WriteLine("Actualizar Sede");
+        Console.WriteLine("Actualizar Vehiculo");
 
         // Busca un registro existente para modificarlo
-        var Sedes = conexion.Sedes!.FirstOrDefault();
-        Assert.IsNotNull(Sedes); // que exista algo en la BD
+        var Vehiculos = conexion.Vehiculos!.FirstOrDefault();
+        Assert.IsNotNull(Vehiculos); // que exista algo en la BD
 
-        Sedes.Nombre = "sede modificada";
-        conexion.Sedes!.Update(Sedes);
+        Vehiculos.Combustion = Combustiones.Gasolina;
+        conexion.Vehiculos!.Update(Vehiculos);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);
@@ -66,17 +64,16 @@ public class SedesUT
 
     // 4. DELETE - Remove
     [TestMethod]
-    [Priority(4)]
-    public void QuitarSede()
+    public void Quitar()
     {
-        Console.WriteLine("Eliminar Sede");
+        Console.WriteLine("Eliminar Vehiculo");
 
-        var Sedes = conexion.Sedes!
+        var Vehiculos = conexion.Vehiculos!
             .OrderByDescending(s => s.Id)
-            .FirstOrDefault(s => s.Nombre == "Sede Test");
-        Assert.IsNotNull(Sedes);
+            .FirstOrDefault(s => s.Combustion == Combustiones.Gas);
+        Assert.IsNotNull(Vehiculos);
 
-        conexion.Sedes!.Remove(Sedes);
+        conexion.Vehiculos!.Remove(Vehiculos);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);

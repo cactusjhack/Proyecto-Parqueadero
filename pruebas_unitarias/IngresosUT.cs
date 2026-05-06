@@ -5,7 +5,7 @@ using lib_aplicaciones.Entidades;
 namespace pruebas_unitarias;
 
 [TestClass]
-public class SedesUT
+public class IngresosUT
 {
     IConexion conexion = new Conexion();
 
@@ -13,33 +13,34 @@ public class SedesUT
     [TestInitialize]
     public void Init()
     {
-        conexion.StringConexion = 
+        conexion.StringConexion =
             "server=localhost;integrated Security=True;TrustServerCertificate=true;database=db_parqueadero;";
     }
 
     // 1. SELECT - Listar
     [TestMethod]
-    [Priority(1)]
-    public void ListarSedes()
+    public void Listar()
     {
-        Console.WriteLine("Listar sedes");
-        var lista_sedes = conexion.Sedes!.ToList();
-        Assert.IsNotNull(lista_sedes);
+        Console.WriteLine("Listar Ingresos");
+        var lista_ingresos = conexion.Ingresos!.ToList();
+        Assert.IsNotNull(lista_ingresos);
     }
 
     // 2. INSERT - Add
     [TestMethod]
-    [Priority(2)]
-    public void InsertarSede()
+    public void Insertar()
     {
-        Console.WriteLine("Insertar sede");
-        Sedes nueva = new Sedes
+        Console.WriteLine("Insertar Ingresos");
+        Ingresos nueva = new Ingresos
         {
-            Nombre = "Sede Test",
-            Direccion = "cra 80d",
+            HoraEntrada = DateTime.Now,
+            HoraSalida = DateTime.Now,
+            Vehiculo = 1,
+            Empleado = 1,
+            Espacio = 1,
         };
 
-        conexion.Sedes!.Add(nueva);
+        conexion.Ingresos!.Add(nueva);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);// confirmó que guardó algo
@@ -47,17 +48,16 @@ public class SedesUT
 
     // 3. UPDATE - Modificar
     [TestMethod]
-    [Priority(3)]
-    public void ActualizarSede()
+    public void Actualizar()
     {
-        Console.WriteLine("Actualizar Sede");
+        Console.WriteLine("Actualizar Ingresos");
 
         // Busca un registro existente para modificarlo
-        var Sedes = conexion.Sedes!.FirstOrDefault();
-        Assert.IsNotNull(Sedes); // que exista algo en la BD
+        var Ingresos = conexion.Ingresos!.FirstOrDefault();
+        Assert.IsNotNull(Ingresos); // que exista algo en la BD
 
-        Sedes.Nombre = "sede modificada";
-        conexion.Sedes!.Update(Sedes);
+        Ingresos.HoraSalida = DateTime.Now.AddHours(2);
+        conexion.Ingresos!.Update(Ingresos);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);
@@ -66,17 +66,16 @@ public class SedesUT
 
     // 4. DELETE - Remove
     [TestMethod]
-    [Priority(4)]
-    public void QuitarSede()
+    public void Quitar()
     {
-        Console.WriteLine("Eliminar Sede");
+        Console.WriteLine("Eliminar Ingreso");
 
-        var Sedes = conexion.Sedes!
+        var Ingresos = conexion.Ingresos!
             .OrderByDescending(s => s.Id)
-            .FirstOrDefault(s => s.Nombre == "Sede Test");
-        Assert.IsNotNull(Sedes);
+            .FirstOrDefault();
+        Assert.IsNotNull(Ingresos);
 
-        conexion.Sedes!.Remove(Sedes);
+        conexion.Ingresos!.Remove(Ingresos);
         int resultado = conexion.SaveChanges();
 
         Assert.IsTrue(resultado > 0);
