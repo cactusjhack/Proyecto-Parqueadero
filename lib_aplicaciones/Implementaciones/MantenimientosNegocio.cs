@@ -5,21 +5,21 @@ using lib_aplicaciones.Entidades;
 
 namespace lib_aplicaciones.implementaciones
 {
-    public class TarifasNegocio : ITarifasNegocio
+    public class MantenimientosNegocio : IMantenimientosNegocio
     {
         private IConexion? iConexion;
 
-        public List<Tarifas> Consultar()
+        public List<Mantenimientos> Consultar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            var lista = this.iConexion.Tarifas!.ToList();
+            var lista = this.iConexion.Mantenimientos!.ToList();
 
             return lista;
         }
 
-        public Tarifas Guardar(Tarifas entidad)
+        public Mantenimientos Guardar(Mantenimientos entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("Ya se guardo");
@@ -27,13 +27,21 @@ namespace lib_aplicaciones.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            this.iConexion.Tarifas!.Add(entidad!);
+            var empleado = this.iConexion.Empleados!.FirstOrDefault(x => x.Id == entidad.Empleado);
+            if (empleado == null)
+                throw new Exception("El empleado no existe");
+
+            var espacio = this.iConexion.Espacios!.FirstOrDefault(x => x.Id == entidad.Espacio);
+            if (espacio == null)
+                throw new Exception("El espacio no existe");
+
+            this.iConexion.Mantenimientos!.Add(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se guardo la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "Mantenimientos",
+                Accion = $"Se guardo el Mantenimiento con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 
@@ -41,21 +49,21 @@ namespace lib_aplicaciones.implementaciones
             return entidad;
         }
 
-        public Tarifas Actualizar(Tarifas entidad)
+        public Mantenimientos Actualizar(Mantenimientos entidad)
         {
             if (entidad.Id == 0)
-                throw new Exception("La tarifa no existe");
+                throw new Exception("El mantenimiento no existe");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            this.iConexion.Tarifas!.Update(entidad!);
+            this.iConexion.Mantenimientos!.Update(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se actualizo la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "Mantenimientos",
+                Accion = $"Se actualizo el mantenimiento con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 
@@ -68,18 +76,18 @@ namespace lib_aplicaciones.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            var entidad = this.iConexion.Tarifas!.FirstOrDefault(x => x.Id == id);
+            var entidad = this.iConexion.Mantenimientos!.FirstOrDefault(x => x.Id == id);
             if (entidad == null)
-                throw new Exception("La tarifa no existe");
+                throw new Exception("El mantenimiento no existe");
 
 
-            this.iConexion.Tarifas!.Remove(entidad!);
+            this.iConexion.Mantenimientos!.Remove(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se elimino la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "Mantenimientos",
+                Accion = $"Se elimino el mantenimiento con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 

@@ -9,7 +9,7 @@ namespace ASP_Servicios.Controllers
     [Route("[controller]/[action]")]
     public class TarifasController : ControllerBase
     {
-        private ITarifaNegocio? ITarifaNegocio;
+        private ITarifasNegocio? ITarifaNegocio;
 
         public TarifasController()
         {

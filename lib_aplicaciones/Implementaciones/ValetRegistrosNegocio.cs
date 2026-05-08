@@ -5,21 +5,21 @@ using lib_aplicaciones.Entidades;
 
 namespace lib_aplicaciones.implementaciones
 {
-    public class TarifasNegocio : ITarifasNegocio
+    public class ValetRegistrosNegocio : IValetRegistrosNegocio
     {
         private IConexion? iConexion;
 
-        public List<Tarifas> Consultar()
+        public List<ValetRegistros> Consultar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            var lista = this.iConexion.Tarifas!.ToList();
+            var lista = this.iConexion.ValetRegistros!.ToList();
 
             return lista;
         }
 
-        public Tarifas Guardar(Tarifas entidad)
+        public ValetRegistros Guardar(ValetRegistros entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("Ya se guardo");
@@ -27,13 +27,25 @@ namespace lib_aplicaciones.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            this.iConexion.Tarifas!.Add(entidad!);
+            var empleado = this.iConexion.Empleados!.FirstOrDefault(x => x.Id == entidad.Empleado);
+            if (empleado == null)
+                throw new Exception("El empleado no existe");
+
+            var vehiculo = this.iConexion.Vehiculos!.FirstOrDefault(x => x.Id == entidad.Vehiculo);
+            if (vehiculo == null)
+                throw new Exception("El vehiculo no existe");
+
+            var ficho = this.iConexion.Fichos!.FirstOrDefault(x => x.Id == entidad.Ficho);
+            if (ficho == null)
+                throw new Exception("El espacio no existe");
+
+            this.iConexion.ValetRegistros!.Add(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se guardo la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "ValetRegistros",
+                Accion = $"Se guardo el ValetRegistro con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 
@@ -41,21 +53,21 @@ namespace lib_aplicaciones.implementaciones
             return entidad;
         }
 
-        public Tarifas Actualizar(Tarifas entidad)
+        public ValetRegistros Actualizar(ValetRegistros entidad)
         {
             if (entidad.Id == 0)
-                throw new Exception("La tarifa no existe");
+                throw new Exception("El ValetRegistro no existe");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            this.iConexion.Tarifas!.Update(entidad!);
+            this.iConexion.ValetRegistros!.Update(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se actualizo la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "ValetRegistros",
+                Accion = $"Se actualizo el ValetRegistro con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 
@@ -68,18 +80,18 @@ namespace lib_aplicaciones.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            var entidad = this.iConexion.Tarifas!.FirstOrDefault(x => x.Id == id);
+            var entidad = this.iConexion.ValetRegistros!.FirstOrDefault(x => x.Id == id);
             if (entidad == null)
-                throw new Exception("La tarifa no existe");
+                throw new Exception("El ValetRegistro no existe");
 
 
-            this.iConexion.Tarifas!.Remove(entidad!);
+            this.iConexion.ValetRegistros!.Remove(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se elimino la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "ValetRegistros",
+                Accion = $"Se elimino el ValetRegistro con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 

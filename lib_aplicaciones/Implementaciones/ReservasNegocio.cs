@@ -5,21 +5,21 @@ using lib_aplicaciones.Entidades;
 
 namespace lib_aplicaciones.implementaciones
 {
-    public class TarifasNegocio : ITarifasNegocio
+    public class ReservasNegocio : IReservasNegocio
     {
         private IConexion? iConexion;
 
-        public List<Tarifas> Consultar()
+        public List<Reservas> Consultar()
         {
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            var lista = this.iConexion.Tarifas!.ToList();
+            var lista = this.iConexion.Reservas!.ToList();
 
             return lista;
         }
 
-        public Tarifas Guardar(Tarifas entidad)
+        public Reservas Guardar(Reservas entidad)
         {
             if (entidad.Id != 0)
                 throw new Exception("Ya se guardo");
@@ -27,13 +27,25 @@ namespace lib_aplicaciones.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            this.iConexion.Tarifas!.Add(entidad!);
+            var cliente = this.iConexion.Clientes!.FirstOrDefault(x => x.Id == entidad.Cliente);
+            if (cliente == null)
+                throw new Exception("El cliente no existe");
+
+            var vehiculo = this.iConexion.Vehiculos!.FirstOrDefault(x => x.Id == entidad.Vehiculo);
+            if (vehiculo == null)
+                throw new Exception("El vehiculo no existe");
+
+            var espacio = this.iConexion.Espacios!.FirstOrDefault(x => x.Id == entidad.Espacio);
+            if (espacio == null)
+                throw new Exception("El espacio no existe");
+
+            this.iConexion.Reservas!.Add(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se guardo la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "Reservas",
+                Accion = $"Se guardo la Reserva con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 
@@ -41,21 +53,21 @@ namespace lib_aplicaciones.implementaciones
             return entidad;
         }
 
-        public Tarifas Actualizar(Tarifas entidad)
+        public Reservas Actualizar(Reservas entidad)
         {
             if (entidad.Id == 0)
-                throw new Exception("La tarifa no existe");
+                throw new Exception("La reserva no existe");
 
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            this.iConexion.Tarifas!.Update(entidad!);
+            this.iConexion.Reservas!.Update(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se actualizo la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "Reservas",
+                Accion = $"Se actualizo la reserva con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 
@@ -68,18 +80,18 @@ namespace lib_aplicaciones.implementaciones
             this.iConexion = new Conexion();
             this.iConexion.StringConexion = Configuraciones.obtener("StringConexion");
 
-            var entidad = this.iConexion.Tarifas!.FirstOrDefault(x => x.Id == id);
+            var entidad = this.iConexion.Reservas!.FirstOrDefault(x => x.Id == id);
             if (entidad == null)
-                throw new Exception("La tarifa no existe");
+                throw new Exception("La reserva no existe");
 
 
-            this.iConexion.Tarifas!.Remove(entidad!);
+            this.iConexion.Reservas!.Remove(entidad!);
             this.iConexion.SaveChanges();
 
             this.iConexion.Auditorias!.Add(new Auditorias
             {
-                Tabla = "Tarifas",
-                Accion = $"Se elimino la tarifa {entidad.FraccionHora} con id {entidad.Id}",
+                Tabla = "Reservas",
+                Accion = $"Se elimino la reserva con id {entidad.Id}",
                 Fecha = DateTime.Now
             });
 
