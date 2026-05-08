@@ -1,9 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace lib_aplicaciones.Entidades
 {
@@ -45,6 +40,32 @@ namespace lib_aplicaciones.Entidades
             decimal CalcularTotal();
         }
 
+    public class Auditorias
+    {
+        public int Id { get; set; }
+        public string? Tabla { get; set; }
+        public string? Accion { get; set; }
+        public DateTime Fecha { get; set; }
+    }
+    public class Roles
+    {
+        public int Id { get; set; }
+        public string? Nombre { get; set; }
+        public string? Descripcion { get; set; }
+        public List<Usuarios>? Usuarios { get; set; }
+    }
+
+    public class Usuarios
+    {
+        public int Id { get; set; }
+        public string? NombreUsuario { get; set; }
+        public string? Contrasena { get; set; }    // hasheada
+        public bool Activo { get; set; }
+        public int Rol { get; set; }
+        public Roles? _Rol { get; set; }
+        public int Empleado { get; set; }          // FK al empleado
+        public Empleados? _Empleado { get; set; }
+    }
         public class Sedes
         {
             public int Id { get; set; }
@@ -55,7 +76,8 @@ namespace lib_aplicaciones.Entidades
             public bool Activa { get; set; }
 
             public List<Pisos>? Pisos { get; set; }
-        }
+            public List<Convenios>? Convenios { get; set; }
+    }
 
         public class Cargos
         {
@@ -92,7 +114,19 @@ namespace lib_aplicaciones.Entidades
             }
         }
 
-        public class Promociones
+        public class Convenios
+        {
+            public int Id { get; set; }
+            public string? Empresa { get; set; }
+            public decimal Descuento { get; set; }
+            public DateTime FechaInicio { get; set; }
+            public DateTime FechaFin { get; set; }
+            public bool Activo { get; set; }
+            public int Sede { get; set; }
+            public Sedes? _Sede { get; set; }
+    }
+
+    public class Promociones
         {
             public int Id { get; set; }
             public string? Nombre { get; set; }
@@ -137,7 +171,8 @@ namespace lib_aplicaciones.Entidades
 
             public Sedes? _Sede { get; set; }
             public List<Espacios>? Espacios { get; set; }
-        }
+            public List<Camaras>? Camaras { get; set; }
+    }
 
         public class Clientes : Personas
         {
@@ -162,7 +197,9 @@ namespace lib_aplicaciones.Entidades
             public List<ValetRegistros>? ValetRegistros { get; set; }
             public List<Detalles>? Detalles { get; set; }
             public List<Mantenimientos>? Mantenimientos { get; set; }
-        }
+            public List<Usuarios>? Usuarios { get; set; }
+            public List<Incidentes>? Incidentes { get; set; }
+    }
 
         public class Vehiculos
         {
@@ -194,6 +231,7 @@ namespace lib_aplicaciones.Entidades
             public List<Ingresos>? Ingresos { get; set; }
             public List<Reservas>? Reservas { get; set; }
             public List<Mantenimientos>? Mantenimientos { get; set; }
+            public List<Incidentes>? Incidentes { get; set; }
         }
 
         public class Reservas
@@ -235,7 +273,17 @@ namespace lib_aplicaciones.Entidades
             public Ingresos? _Ingreso { get; set; }
         }
 
-        public class Mantenimientos
+        public class Camaras
+        {
+            public int Id { get; set; }
+            public string? Codigo { get; set; }
+            public string? Ubicacion { get; set; }
+            public bool Activa { get; set; }
+            public int Piso { get; set; }
+            public Pisos? _Piso { get; set; }
+    }
+
+    public class Mantenimientos
         {
             public int Id { get; set; }
             public string? Descripcion { get; set; }
@@ -249,7 +297,20 @@ namespace lib_aplicaciones.Entidades
             public Empleados? _Empleado { get; set; }
         }
 
-        public class Ingresos
+        public class Incidentes
+        {
+            public int Id { get; set; }
+            public string? Descripcion { get; set; }
+            public DateTime Fecha { get; set; }
+            public string? Tipo { get; set; }
+            public bool Resuelto { get; set; }
+            public int Espacio { get; set; }
+            public int Empleado { get; set; }
+            public Espacios? _Espacio { get; set; }
+            public Empleados? _Empleado { get; set; }
+    }
+
+    public class Ingresos
         {
             public int Id { get; set; }
             public DateTime HoraEntrada { get; set; }

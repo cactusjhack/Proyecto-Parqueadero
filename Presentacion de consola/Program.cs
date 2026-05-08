@@ -4,6 +4,8 @@ using lib_aplicaciones.Interfaces;
 Console.WriteLine("Conexion a base de datos");
 IConexion conexion = new Conexion();
 conexion.StringConexion = "server=localhost;integrated Security=True;TrustServerCertificate=true;database=db_parqueadero;";
+var lista_auditorias = conexion.Auditorias!.ToList();
+var lista_roles = conexion.Roles!.ToList();
 var lista_sedes = conexion.Sedes!.ToList();
 var lista_cargos = conexion.Cargos!.ToList();
 var lista_tarifas = conexion.Tarifas!.ToList();
@@ -23,6 +25,11 @@ var lista_cobros = conexion.Cobros!.ToList();
 var lista_pagos = conexion.Pagos!.ToList();
 var lista_notificaciones = conexion.Notificaciones!.ToList();
 var lista_mantenimientos = conexion.Mantenimientos!.ToList();
+var lista_usuarios = conexion.Usuarios!.ToList();
+var lista_incidentes = conexion.Incidentes!.ToList();
+var lista_convenios = conexion.Convenios!.ToList();
+var lista_camaras = conexion.Camaras!.ToList();
+
 
 Console.WriteLine("SEDES");
 foreach (var s in lista_sedes)
@@ -175,6 +182,46 @@ Console.WriteLine("MANTENIMIENTOS");
 foreach (var m in lista_mantenimientos)
 {
     Console.WriteLine($"{m.Id} {m.Descripcion} {m.FechaInicio} {m.FechaFin} {m.Activo} {m.Espacio} {m.Empleado}");
+}
+
+Console.WriteLine("----------------------------------");
+
+Console.WriteLine("USUARIOS");
+foreach (var u in lista_usuarios)
+{
+    Console.WriteLine($"{u.Id} {u.NombreUsuario} {u.Rol}");
+}
+
+Console.WriteLine("----------------------------------");
+
+Console.WriteLine("ROLES");
+foreach (var r in lista_roles)
+{
+    Console.WriteLine($"{r.Id} {r.Nombre} {r.Descripcion}");
+}
+
+Console.WriteLine("----------------------------------");
+
+Console.WriteLine("CONVENIOS");
+foreach (var c in lista_convenios)
+{
+    Console.WriteLine($"{c.Id} {c.Empresa} {c.Descuento} {c.FechaInicio} {c.FechaFin} {c.Activo} {c.Sede}");
+}
+
+Console.WriteLine("----------------------------------");
+
+Console.WriteLine("CAMARAS");
+foreach (var c in lista_camaras)
+{
+    Console.WriteLine($"{c.Id} {c.Codigo} {c.Ubicacion} {c.Activa} {c.Piso}");
+}
+
+Console.WriteLine("----------------------------------");
+
+Console.WriteLine("INCIDENTES");
+foreach (var i in lista_incidentes)
+{
+    Console.WriteLine($"{i.Id} {i.Descripcion} {i.Fecha} {i.Espacio} {i.Empleado}");
 }
 
 Console.WriteLine("Final");

@@ -1,6 +1,6 @@
 @ASP_Servicios_HostAddress = http://localhost:5195
 
-GET {{ASP_Servicios_HostAddress}}/weatherforecast/
+GET {{ASP_Servicios_HostAddress}}/Cargos/
 Accept: application/json
 
 ###

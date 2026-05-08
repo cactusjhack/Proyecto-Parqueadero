@@ -4,6 +4,20 @@ GO
 USE db_parqueadero;
 GO
 
+CREATE TABLE Auditorias(
+Id INT PRIMARY KEY IDENTITY(1,1),
+Tabla NVARCHAR(70),
+Accion NVARCHAR(50),
+Fecha DATETIME,
+);
+
+CREATE TABLE Roles (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    Nombre      NVARCHAR(50),
+    Descripcion NVARCHAR(150)
+);
+
+
 CREATE TABLE Sedes (
     Id        INT PRIMARY KEY IDENTITY(1,1),
     Nombre    NVARCHAR(100),
@@ -29,6 +43,16 @@ CREATE TABLE Tarifas (
     FraccionHora   DECIMAL(5,2),
     AplicaCargador BIT DEFAULT 0,
     ValorCarga     DECIMAL(10,2)
+);
+
+CREATE TABLE Convenios (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    Empresa     NVARCHAR(100),
+    Descuento   DECIMAL(5,2),
+    FechaInicio DATETIME,
+    FechaFin    DATETIME,
+    Activo      BIT DEFAULT 1,
+    Sede        INT NOT NULL REFERENCES Sedes(Id)
 );
 
 CREATE TABLE Promociones (
@@ -72,6 +96,15 @@ CREATE TABLE Empleados (
     Correo   NVARCHAR(100),
     Cargo    INT NOT NULL REFERENCES Cargos(Id),
     Turno    INT NOT NULL
+);
+
+CREATE TABLE Usuarios (
+    Id       INT PRIMARY KEY IDENTITY(1,1),
+    NombreUsuario NVARCHAR(50),
+    Contrasena   NVARCHAR(100),
+    Activo       BIT DEFAULT 1,
+    Rol      INT NOT NULL REFERENCES Roles(Id),
+    Empleado INT NOT NULL REFERENCES Empleados(Id)
 );
 
 CREATE TABLE Pisos (
@@ -188,6 +221,14 @@ CREATE TABLE Notificaciones (
     Cliente  INT NOT NULL REFERENCES Clientes(Id)
 );
 
+CREATE TABLE Camaras (
+    Id        INT PRIMARY KEY IDENTITY(1,1),
+    Codigo    NVARCHAR(30),
+    Ubicacion NVARCHAR(100),
+    Activa    BIT DEFAULT 1,
+    Piso      INT NOT NULL REFERENCES Pisos(Id)
+);
+
 CREATE TABLE Mantenimientos (
     Id          INT PRIMARY KEY IDENTITY(1,1),
     Descripcion NVARCHAR(200),
@@ -197,6 +238,24 @@ CREATE TABLE Mantenimientos (
     Espacio     INT NOT NULL REFERENCES Espacios(Id),
     Empleado    INT NOT NULL REFERENCES Empleados(Id)
 );
+
+CREATE TABLE Incidentes (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    Descripcion NVARCHAR(200),
+    Fecha       DATETIME,
+    Tipo        NVARCHAR(50),      -- Robo, Daño, Accidente, Otro
+    Resuelto    BIT DEFAULT 0,
+    Espacio     INT NOT NULL REFERENCES Espacios(Id),
+    Empleado    INT NOT NULL REFERENCES Empleados(Id)
+);
+
+-- =============================================
+-- ROLES
+-- =============================================
+INSERT INTO Roles (Nombre, Descripcion) VALUES
+('Administrador', 'Acceso total al sistema'),
+('Operario',      'Acceso operativo basico'),
+('Supervisor',    'Supervision de operaciones');
 
 -- =============================================
 -- SEDES
@@ -229,6 +288,15 @@ INSERT INTO Tarifas (TipoVehiculo, PrecioHora, FraccionHora, AplicaCargador, Val
 (4, 1000, 0.25, 1, 2000),   -- Bicicleta
 (5,  500, 0.25, 1, 1500);   -- Patineta
  
+ -- =============================================
+-- CONVENIOS
+-- =============================================
+INSERT INTO Convenios (Empresa, Descuento, FechaInicio, FechaFin, Activo, Sede) VALUES
+('Empresa A', 10, '2026-01-01', '2026-12-31', 1, 1),
+('Empresa B', 15, '2026-01-01', '2026-12-31', 1, 2),
+('Empresa C', 20, '2026-01-01', '2026-12-31', 1, 3),
+('Empresa D', 25, '2026-01-01', '2026-12-31', 1, 4),
+('Empresa E', 30, '2026-01-01', '2026-12-31', 1, 5);
 -- =============================================
 -- PROMOCIONES
 -- TipoVehiculo: NULL = aplica a todos
@@ -261,6 +329,15 @@ INSERT INTO Empleados (Nombre, Apellido, Cedula, Telefono, Correo, Cargo, Turno)
 ('Miguel', 'Rios',   '85236', '3003456789', 'miguel@mallplaza.com', 5, 2),
 ('Michel', 'Vargas', '96321', '3004567890', 'michel@mallplaza.com', 3, 1),
 ('Jacobo', 'Mejia',  '25874', '3005678901', 'jacobo@mallplaza.com', 3, 2);
+
+
+-- =============================================
+-- USUARIOS
+-- =============================================
+INSERT INTO Usuarios (NombreUsuario, Contrasena, Activo, Rol, Empleado) VALUES
+('andrea.gomez',  '1234', 1, 1, 1),
+('henry.torres',  '1234', 1, 2, 2),
+('miguel.rios',   '1234', 1, 3, 3);
  
 -- =============================================
 -- PISOS
@@ -391,6 +468,16 @@ INSERT INTO Detalles (Ingreso, Descripcion, Fecha, Vehiculo, Empleado) VALUES
 (1, 'Llanta desinflada',       '2026-03-03', 1, 5),
 (0, 'Rayon puerta derecha',    '2026-03-03', 5, 4);
  
+ -- =============================================
+-- CAMARAS
+-- =============================================
+INSERT INTO Camaras (Codigo, Ubicacion, Activa, Piso) VALUES
+('C-001', 'Entrada principal', 1, 1),
+('C-002', 'Zona A',           1, 1),
+('C-003', 'Zona B',           1, 2),
+('C-004', 'Zona C',           1, 3),
+('C-005', 'Zona D',           1, 4),
+('C-006', 'Zona E',           1, 5);
 -- =============================================
 -- MANTENIMIENTOS
 -- =============================================
@@ -401,5 +488,14 @@ INSERT INTO Mantenimientos (Descripcion, FechaInicio, FechaFin, Activo, Espacio,
 ('Cambio de iluminacion LED',    '2026-03-03 06:00', '2026-03-03 08:00', 0, 4, 3),
 ('Limpieza general zona C',      '2026-03-04 07:00', '2026-03-04 11:00', 0, 6, 3);
 
+-- =============================================
+-- INCIDENTES
+-- =============================================
+INSERT INTO Incidentes (Descripcion, Fecha, Tipo, Resuelto, Espacio, Empleado) VALUES
+('Robo de objetos del interior del vehiculo', '2026-03-03 12:00', 'Robo', 0, 1, 4),
+('Daño en carroceria por colision', '2026-03-03 13:00', 'Daño', 0, 2, 5),
+('Accidente entre dos vehiculos al estacionar', '2026-03-03 14:00', 'Accidente', 0, 3, 4),
+('Falla en sistema de pago automatico', '2026-03-03 15:00', 'Otro', 1, 4, 5),
+('Pérdida de tiquete por parte del cliente', '2026-03-03 16:00', 'Otro', 1, 5, 4);
 
 SELECT * FROM Clientes;

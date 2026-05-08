@@ -165,6 +165,41 @@ namespace lib_aplicaciones.Implementaciones
                 .HasForeignKey(p => p.Empleado);
             });
 
+            modelBuilder.Entity<Usuarios>(entity =>
+            {
+                entity.HasOne(P => P._Empleado)
+               .WithMany(C => C.Usuarios)
+               .HasForeignKey(p => p.Empleado);
+
+                entity.HasOne(P => P._Rol)
+                .WithMany(C => C.Usuarios)
+                .HasForeignKey(p => p.Rol);
+            });
+
+            modelBuilder.Entity<Incidentes>(entity =>
+            {
+                entity.HasOne(P => P._Espacio)
+               .WithMany(C => C.Incidentes)
+               .HasForeignKey(p => p.Espacio);
+
+                entity.HasOne(P => P._Empleado)
+                .WithMany(C => C.Incidentes)
+                .HasForeignKey(p => p.Empleado);
+            });
+
+            modelBuilder.Entity<Camaras>(entity =>
+            {
+                entity.HasOne(P => P._Piso)
+               .WithMany(C => C.Camaras)
+               .HasForeignKey(p => p.Piso);
+            });
+
+            modelBuilder.Entity<Convenios>(entity =>
+            {
+                entity.HasOne(P => P._Sede)
+               .WithMany(C => C.Convenios)
+               .HasForeignKey(p => p.Sede);
+            });
 
         }
 
@@ -188,5 +223,11 @@ namespace lib_aplicaciones.Implementaciones
         public DbSet<Pagos>? Pagos { get; set; }
         public DbSet<Notificaciones>? Notificaciones { get; set; }
         public DbSet<Mantenimientos>? Mantenimientos { get; set; }
+        public DbSet<Auditorias>? Auditorias { get; set; }
+        public DbSet<Usuarios>? Usuarios { get; set; }
+        public DbSet<Roles>? Roles { get; set; }
+        public DbSet<Convenios>? Convenios { get; set; }
+        public DbSet<Camaras>? Camaras { get; set; }
+        public DbSet<Incidentes>? Incidentes { get; set; }
     }
 }

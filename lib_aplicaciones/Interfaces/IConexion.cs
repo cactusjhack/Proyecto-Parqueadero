@@ -26,6 +26,12 @@ namespace lib_aplicaciones.Interfaces
         public DbSet<Pagos>? Pagos { get; set; }
         public DbSet<Notificaciones>? Notificaciones { get; set; }
         public DbSet<Mantenimientos>? Mantenimientos { get; set; }
+        public DbSet<Auditorias>? Auditorias { get; set; }
+        public DbSet<Usuarios>? Usuarios { get; set; }
+        public DbSet<Roles>? Roles { get; set; }
+        public DbSet<Convenios>? Convenios { get; set; }
+        public DbSet<Camaras>? Camaras { get; set; }
+        public DbSet<Incidentes>? Incidentes { get; set; }
         int SaveChanges();
     }
 }
