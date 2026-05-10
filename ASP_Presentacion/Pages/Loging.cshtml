@@ -1,0 +1,20 @@
+﻿@page
+@model ASP_Presentacion.Pages.LoginModel
+<h2>Iniciar Sesión</h2>
+
+<form method="post">
+    <div>
+        <Label>Usuario:</Label>
+        <input asp-for="NombreUsuario"/>
+    </div>
+    <div>
+        <label>Contraseña:</label>
+        <input asp-for="Contrasena" type="password" />
+    </div>
+    <button type="submit">Entrar</button>
+    @if (Model.ErrorMessage != null)
+    {
+        <p style="color:red">@Model.ErrorMessage</p>
+    }
+</form>
+

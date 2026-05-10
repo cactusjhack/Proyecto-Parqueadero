@@ -1,0 +1,20 @@
+﻿@page
+@model ASP_Presentacion.Pages.IndexModel
+<h2>
+    Bienvenido, @HttpContext.Session.GetString("Usuario")</h2>
+
+<nav>
+    <ul>
+        <li><a href="/Sedes">Sedes</a></li>
+        <li><a href="/Cargos">Cargos</a></li>
+        <li><a href="/Empleados">Empleados</a></li>
+        <li><a href="/Clientes">Clientes</a></li>
+        <li><a href="/Vehiculos">Vehículos</a></li>
+        <li><a href="/Tarifas">Tarifas</a></li>
+        <li><a href="/Usuarios">Usuarios</a></li>
+    </ul>
+</nav>
+
+<form method="post" action="/Logout">
+    <button type="submit">Cerrar sesión</button>
+</form>

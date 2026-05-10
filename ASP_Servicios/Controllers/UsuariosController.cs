@@ -15,6 +15,11 @@ namespace ASP_Servicios.Controllers
         {
             IUsuariosNegocio = new UsuariosNegocio();
         }
+        public class LoginDto
+        {
+            public string NombreUsuario { get; set; } = null!;
+            public string Contrasena { get; set; } = null!;
+        }
 
         [HttpGet]
         public List<Usuarios> Consultar()
@@ -32,12 +37,17 @@ namespace ASP_Servicios.Controllers
             return IUsuariosNegocio!.Guardar(entidad);
         }
 
-        [HttpPost]
-        public Usuarios? Loging([FromBody] Usuarios entidad)
+        [HttpPost("Loging")]
+        public IActionResult Loging([FromBody] LoginDto dto)
         {
             if (IUsuariosNegocio == null)
                 throw new Exception("No implementado");
-            return IUsuariosNegocio!.Login(entidad.NombreUsuario!, entidad.Contrasena!);
+
+            var usuario = IUsuariosNegocio!.Login(dto.NombreUsuario, dto.Contrasena);
+            if (usuario == null)
+                return Unauthorized(new { message = "Usuario o contraseña incorrectos" });
+
+            return Ok(usuario);
         }
 
         [HttpPut]
