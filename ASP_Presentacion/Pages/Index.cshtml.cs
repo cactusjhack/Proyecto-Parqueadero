@@ -19,5 +19,11 @@ namespace ASP_Presentacion.Pages
 
             return Page();
         }
+
+        public IActionResult OnPostBtSalir()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Login");
+        }
     }
 }
