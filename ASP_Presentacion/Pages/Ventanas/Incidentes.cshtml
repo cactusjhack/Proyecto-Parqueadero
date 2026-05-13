@@ -1,0 +1,117 @@
+﻿@page
+@model ASP_Presentacion.Pages.Ventanas.IncidentesModel
+@{
+    ViewData["Title"] = "Incidentes";
+}
+
+<center>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div align="left">
+                <h3>Incidentes</h3>
+            </div>
+
+            <div>
+                <input type="submit" value="Refrescar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtRefrescar" />
+                @if (Model.Incidente == null)
+                {
+                    <input type="submit" value="Nuevo"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtNuevo" />
+                }
+                else
+                {
+                    <input type="submit" value="Guardar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtGuardar" />
+                }
+            </div>
+
+            @if (Model.Incidente != null)
+            {
+                <input type="hidden" asp-for="@Model.Incidente!.Id" />
+                <div>
+                    <div class="form-group">
+                        <label>Descripcion</label>
+                        <input class="form-control" asp-for="@Model.Incidente!.Descripcion" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input class="form-control" asp-for="@Model.Incidente!.Fecha" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <input class="form-control" asp-for="@Model.Incidente!.Tipo" />
+                    </div>
+                    <div class="form-group">
+                        <label>Resuelto</label>
+                        <input asp-for="@Model.Incidente!.Resuelto" />
+                    </div>
+                    <div class="form-group">
+                        <label>Espacio</label>
+                        <input class="form-control" asp-for="@Model.Incidente!.Espacio" />
+                    </div>
+                    <div class="form-group">
+                        <label>Empleado</label>
+                        <input class="form-control" asp-for="@Model.Incidente!.Empleado" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Incidente != null && Model.Borrando)
+            {
+                <div class="popup">
+                    <div>
+                        <h2>Mensaje</h2>
+                        <h6>¿Desea borrar el incidente @Model.Incidente!.Descripcion?</h6>
+                        <input type="submit" value="Cerrar"
+                               asp-page-handler="BtCerrar"
+                               class="btn btn-secondary" />
+                        <input type="submit" value="Borrar"
+                               asp-page-handler="BtBorrar"
+                               class="btn btn-secondary" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Lista != null && Model.Lista.Count > 0)
+            {
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Descripcion</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Resuelto</th>
+                        <th>Espacio</th>
+                        <th>Empleado</th>
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Descripcion</td>
+                            <td>@elemento.Fecha</td>
+                            <td>@elemento.Tipo</td>
+                            <td>@elemento.Resuelto</td>
+                            <td>@elemento.Espacio</td>
+                            <td>@elemento.Empleado</td>
+                            <td>
+                                <input type="submit" value="Modificar"
+                                       asp-page-handler="BtModificar"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar"
+                                       asp-page-handler="BtBorrarVal"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </form>
+    </div>
+</center>

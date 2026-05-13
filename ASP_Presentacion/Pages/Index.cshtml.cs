@@ -23,7 +23,7 @@ namespace ASP_Presentacion.Pages
         public IActionResult OnPostBtSalir()
         {
             HttpContext.Session.Clear();
-            return RedirectToPage("/Login");
+            return RedirectToPage("/Loging");
         }
     }
 }

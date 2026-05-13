@@ -1,0 +1,111 @@
+﻿@page
+@model ASP_Presentacion.Pages.Ventanas.EspaciosModel
+@{
+    ViewData["Title"] = "Espacios";
+}
+
+<center>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div align="left">
+                <h3>Espacios</h3>
+            </div>
+
+            <div>
+                <input type="submit" value="Refrescar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtRefrescar" />
+                @if (Model.Espacio == null)
+                {
+                    <input type="submit" value="Nuevo"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtNuevo" />
+                }
+                else
+                {
+                    <input type="submit" value="Guardar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtGuardar" />
+                }
+            </div>
+
+            @if (Model.Espacio != null)
+            {
+                <input type="hidden" asp-for="@Model.Espacio!.Id" />
+                <div>
+                    <div class="form-group">
+                        <label>Numero</label>
+                        <input class="form-control" asp-for="@Model.Espacio!.Numero" />
+                    </div>
+                    <div class="form-group">
+                        <label>TipoVehiculo</label>
+                        <input class="form-control" asp-for="@Model.Espacio!.TipoVehiculo" />
+                    </div>
+                    <div class="form-group">
+                        <label>PuestoCarga</label>
+                        <input asp-for="@Model.Espacio!.PuestoCarga" />
+                    </div>
+                    <div class="form-group">
+                        <label>Disponible</label>
+                        <input asp-for="@Model.Espacio!.Disponible" />
+                    </div>
+                    <div class="form-group">
+                        <label>Piso</label>
+                        <input class="form-control" asp-for="@Model.Espacio!.Piso" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Espacio != null && Model.Borrando)
+            {
+                <div class="popup">
+                    <div>
+                        <h2>Mensaje</h2>
+                        <h6>¿Desea borrar el espacio @Model.Espacio!.Numero?</h6>
+                        <input type="submit" value="Cerrar"
+                               asp-page-handler="BtCerrar"
+                               class="btn btn-secondary" />
+                        <input type="submit" value="Borrar"
+                               asp-page-handler="BtBorrar"
+                               class="btn btn-secondary" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Lista != null && Model.Lista.Count > 0)
+            {
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Numero</th>
+                        <th>TipoVehiculo</th>
+                        <th>PuestoCarga</th>
+                        <th>Disponible</th>
+                        <th>Piso</th>
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Numero</td>
+                            <td>@elemento.TipoVehiculo</td>
+                            <td>@elemento.PuestoCarga</td>
+                            <td>@elemento.Disponible</td>
+                            <td>@elemento.Piso</td>
+                            <td>
+                                <input type="submit" value="Modificar"
+                                       asp-page-handler="BtModificar"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar"
+                                       asp-page-handler="BtBorrarVal"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </form>
+    </div>
+</center>

@@ -1,0 +1,117 @@
+﻿@page
+@model ASP_Presentacion.Pages.Ventanas.ReservasModel
+@{
+    ViewData["Title"] = "Reservas";
+}
+
+<center>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div align="left">
+                <h3>Reservas</h3>
+            </div>
+
+            <div>
+                <input type="submit" value="Refrescar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtRefrescar" />
+                @if (Model.Reserva == null)
+                {
+                    <input type="submit" value="Nuevo"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtNuevo" />
+                }
+                else
+                {
+                    <input type="submit" value="Guardar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtGuardar" />
+                }
+            </div>
+
+            @if (Model.Reserva != null)
+            {
+                <input type="hidden" asp-for="@Model.Reserva!.Id" />
+                <div>
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <input class="form-control" asp-for="@Model.Reserva!.Cliente" />
+                    </div>
+                    <div class="form-group">
+                        <label>Vehiculo</label>
+                        <input class="form-control" asp-for="@Model.Reserva!.Vehiculo" />
+                    </div>
+                    <div class="form-group">
+                        <label>Espacio</label>
+                        <input class="form-control" asp-for="@Model.Reserva!.Espacio" />
+                    </div>
+                    <div class="form-group">
+                        <label>FechaReserva</label>
+                        <input class="form-control" asp-for="@Model.Reserva!.FechaReserva" />
+                    </div>
+                    <div class="form-group">
+                        <label>FechaIngreso</label>
+                        <input class="form-control" asp-for="@Model.Reserva!.FechaIngreso" />
+                    </div>
+                    <div class="form-group">
+                        <label>Activa</label>
+                        <input asp-for="@Model.Reserva!.Activa" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Reserva != null && Model.Borrando)
+            {
+                <div class="popup">
+                    <div>
+                        <h2>Mensaje</h2>
+                        <h6>¿Desea borrar la reserva @Model.Reserva!.Id?</h6>
+                        <input type="submit" value="Cerrar"
+                               asp-page-handler="BtCerrar"
+                               class="btn btn-secondary" />
+                        <input type="submit" value="Borrar"
+                               asp-page-handler="BtBorrar"
+                               class="btn btn-secondary" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Lista != null && Model.Lista.Count > 0)
+            {
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Vehiculo</th>
+                        <th>Espacio</th>
+                        <th>FechaReserva</th>
+                        <th>FechaIngreso</th>
+                        <th>Activa</th>
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Cliente</td>
+                            <td>@elemento.Vehiculo</td>
+                            <td>@elemento.Espacio</td>
+                            <td>@elemento.FechaReserva</td>
+                            <td>@elemento.FechaIngreso</td>
+                            <td>@elemento.Activa</td>
+                            <td>
+                                <input type="submit" value="Modificar"
+                                       asp-page-handler="BtModificar"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar"
+                                       asp-page-handler="BtBorrarVal"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </form>
+    </div>
+</center>

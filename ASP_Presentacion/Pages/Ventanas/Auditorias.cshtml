@@ -1,0 +1,60 @@
+﻿@page
+@model ASP_Presentacion.Pages.Ventanas.AuditoriasModel
+@{
+    ViewData["Title"] = "Auditorias";
+}
+
+<center>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div align="left">
+                <h3>Auditorias</h3>
+            </div>
+
+            <div>
+                <input type="submit" value="Refrescar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtRefrescar" />
+
+            @if (Model.Auditoria != null)
+            {
+                <input type="hidden" asp-for="@Model.Auditoria!.Id" />
+                <div>
+                    <div class="form-group">
+                        <label>Tabla</label>
+                        <input class="form-control" asp-for="@Model.Auditoria!.Tabla" />
+                    </div>
+                    <div class="form-group">
+                        <label>Accion</label>
+                        <input class="form-control" asp-for="@Model.Auditoria!.Accion" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input class="form-control" asp-for="@Model.Auditoria!.Fecha" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Lista != null && Model.Lista.Count > 0)
+            {
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Tabla</th>
+                        <th>Accion</th>
+                        <th>Fecha</th>
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Tabla</td>
+                            <td>@elemento.Accion</td>
+                            <td>@elemento.Fecha</td>
+                        </tr>
+                    }
+                </table>
+            }
+        </form>
+    </div>
+</center>
