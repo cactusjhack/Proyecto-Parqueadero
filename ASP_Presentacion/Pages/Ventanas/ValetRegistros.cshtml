@@ -1,0 +1,111 @@
+﻿@page
+@model ASP_Presentacion.Pages.Ventanas.ValetRegistrosModel
+@{
+    ViewData["Title"] = "Valet Registros";
+}
+
+<center>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div align="left">
+                <h3>Valet Registros</h3>
+            </div>
+
+            <div>
+                <input type="submit" value="Refrescar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtRefrescar" />
+                @if (Model.ValetRegistro == null)
+                {
+                    <input type="submit" value="Nuevo"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtNuevo" />
+                }
+                else
+                {
+                    <input type="submit" value="Guardar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtGuardar" />
+                }
+            </div>
+
+            @if (Model.ValetRegistro != null)
+            {
+                <input type="hidden" asp-for="@Model.ValetRegistro!.Id" />
+                <div>
+                    <div class="form-group">
+                        <label>Hora Entrada</label>
+                        <input class="form-control" asp-for="@Model.ValetRegistro!.HoraEntrada" />
+                    </div>
+                    <div class="form-group">
+                        <label>Hora Salida</label>
+                        <input class="form-control" asp-for="@Model.ValetRegistro!.HoraSalida" />
+                    </div>
+                    <div class="form-group">
+                        <label>Empleado</label>
+                        <input class="form-control" asp-for="@Model.ValetRegistro!.Empleado" />
+                    </div>
+                    <div class="form-group">
+                        <label>Vehículo</label>
+                        <input class="form-control" asp-for="@Model.ValetRegistro!.Vehiculo" />
+                    </div>
+                    <div class="form-group">
+                        <label>Ficho</label>
+                        <input class="form-control" asp-for="@Model.ValetRegistro!.Ficho" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.ValetRegistro != null && Model.Borrando)
+            {
+                <div class="popup">
+                    <div>
+                        <h2>Mensaje</h2>
+                        <h6>¿Desea borrar el valet registro @Model.ValetRegistro!.Id?</h6>
+                        <input type="submit" value="Cerrar"
+                               asp-page-handler="BtCerrar"
+                               class="btn btn-secondary" />
+                        <input type="submit" value="Borrar"
+                               asp-page-handler="BtBorrar"
+                               class="btn btn-secondary" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.Lista != null && Model.Lista.Count > 0)
+            {
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>HoraEntrada</th>
+                        <th>HoraSalida</th>
+                        <th>Empleado</th>
+                        <th>Vehículo</th>
+                        <th>Ficho</th>
+                    </tr>
+                    @foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.HoraEntrada</td>
+                            <td>@elemento.HoraSalida</td>
+                            <td>@elemento.Empleado</td>
+                            <td>@elemento.Vehiculo</td>
+                            <td>@elemento.Ficho</td>
+                            <td>
+                                <input type="submit" value="Modificar"
+                                       asp-page-handler="BtModificar"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                                <input type="submit" value="Borrar"
+                                       asp-page-handler="BtBorrarVal"
+                                       class="btn btn-secondary"
+                                       asp-route-data="@elemento.Id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </form>
+    </div>
+</center>

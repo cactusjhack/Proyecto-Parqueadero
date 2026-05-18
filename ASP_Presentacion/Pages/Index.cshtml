@@ -1,44 +1,136 @@
 ﻿@page
 @model ASP_Presentacion.Pages.IndexModel
+@{
+    var rol = HttpContext.Session.GetString("Rol");
+}
 
-<center>
-    <div>
-        <h2>Bienvenido, @HttpContext.Session.GetString("Usuario")</h2>
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2>🅿️ Parqueadero Mall Plaza</h2>
+        <p class="text-muted">
+            Bienvenido, <strong>@HttpContext.Session.GetString("Usuario")</strong>
+            | Rol: <span class="badge bg-dark">@rol</span>
+        </p>
+    </div>
 
-        <nav>
-            <ul style="list-style:none">
-                <li><a href="/Ventanas/Sedes" class="btn btn-secondary">Sedes</a></li>
-                <li><a href="/Ventanas/Cargos" class="btn btn-secondary">Cargos</a></li>
-                <li><a href="/Ventanas/Empleados" class="btn btn-secondary">Empleados</a></li>
-                <li><a href="/Ventanas/Clientes" class="btn btn-secondary">Clientes</a></li>
-                <li><a href="/Ventanas/Tarifas" class="btn btn-secondary">Tarifas</a></li>
-                <li><a href="/Ventanas/Usuarios" class="btn btn-secondary">Usuarios</a></li>
-                <li><a href="/Ventanas/Roles" class="btn btn-secondary">Roles</a></li>
-                <li><a href="/Ventanas/Auditorias" class="btn btn-secondary">Auditorias</a></li>
-                <li><a href="/Ventanas/Promociones" class="btn btn-secondary">Promociones</a></li>
-                <li><a href="/Ventanas/Convenios" class="btn btn-secondary">Convenios</a></li>
-                <li><a href="/Ventanas/Camaras" class="btn btn-secondary">Camaras</a></li>
-                <li><a href="/Ventanas/Incidentes" class="btn btn-secondary">Incidentes</a></li>
-                <li><a href="/Ventanas/Vehiculos" class="btn btn-secondary">Vehiculos</a></li>
-                <li><a href="/Ventanas/Pisos" class="btn btn-secondary">Pisos</a></li>
-                <li><a href="/Ventanas/Espacios" class="btn btn-secondary">Espacios</a></li>
-                <li><a href="/Ventanas/Ingresos" class="btn btn-secondary">Ingresos</a></li>
-                <li><a href="/Ventanas/Reservas" class="btn btn-secondary">Reservas</a></li>
-                <li><a href="/Ventanas/Cobros" class="btn btn-secondary">Cobros</a></li>
-                <li><a href="/Ventanas/Pagos" class="btn btn-secondary">Pagos</a></li>
-                <li><a href="/Ventanas/Tiquetes" class="btn btn-secondary">Tiquetes</a></li>
-                <li><a href="/Ventanas/Fichos" class="btn btn-secondary">Fichos</a></li>
-                <li><a href="/Ventanas/ValetRegistros" class="btn btn-secondary">ValetRegistros</a></li>
-                <li><a href="/Ventanas/Detalles" class="btn btn-secondary">Detalles</a></li>
-                <li><a href="/Ventanas/Notificaciones" class="btn btn-secondary">Notificaciones</a></li>
-                <li><a href="/Ventanas/Mantenimientos" class="btn btn-secondary">Mantenimientos</a></li>
-            </ul>
-        </nav>
+    <h5 class="mt-4">📁 Administración</h5>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Sedes" class="btn btn-dark w-100">🏢 Sedes</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Cargos" class="btn btn-dark w-100">💼 Cargos</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Empleados" class="btn btn-dark w-100">👥 Empleados</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Clientes" class="btn btn-dark w-100">🧑 Clientes</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Usuarios" class="btn btn-dark w-100"> Usuarios</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Roles" class="btn btn-dark w-100">️ Roles</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Tarifas" class="btn btn-dark w-100">💰 Tarifas</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Auditorias" class="btn btn-dark w-100">📋 Auditorías</a>
+        </div>
+    </div>
 
+    <h5 class="mt-4">🚗 Operación</h5>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Vehiculos" class="btn btn-dark w-100"> Vehículos</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Pisos" class="btn btn-dark w-100">️ Pisos</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Espacios" class="btn btn-dark w-100">🅿️ Espacios</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Ingresos" class="btn btn-dark w-100">📥 Ingresos</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Reservas" class="btn btn-dark w-100">📅 Reservas</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Tiquetes" class="btn btn-dark w-100">🎫 Tiquetes</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Fichos" class="btn btn-dark w-100"> Fichos</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/ValetRegistros" class="btn btn-dark w-100">🤵 Valet</a>
+        </div>
+    </div>
+
+    <h5 class="mt-4">💳 Financiero</h5>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Cobros" class="btn btn-dark w-100">💵 Cobros</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Pagos" class="btn btn-dark w-100">💳 Pagos</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Promociones" class="btn btn-dark w-100">🏷️ Promociones</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Convenios" class="btn btn-dark w-100">🤝 Convenios</a>
+        </div>
+    </div>
+
+    <h5 class="mt-4"> Mantenimiento y Seguridad</h5>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Camaras" class="btn btn-dark w-100">📹 Cámaras</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Incidentes" class="btn btn-dark w-100">⚠️ Incidentes</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Mantenimientos" class="btn btn-dark w-100">🔨 Mantenimientos</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Notificaciones" class="btn btn-dark w-100"> Notificaciones</a>
+        </div>
+        <div class="col-md-3 menu-card">
+            <a href="/Ventanas/Detalles" class="btn btn-dark w-100">📊 Detalles</a>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 mb-4">
         <form method="post" asp-page-handler="BtSalir">
             @Html.AntiForgeryToken()
-            <input type="submit" value="Cerrar Sesión"
-                   class="btn btn-danger" />
+            <button type="submit" class="btn btn-danger">
+                🚪 Cerrar Sesión
+            </button>
         </form>
     </div>
-</center>
+</div>
+
+<style>
+    .menu-card {
+        margin-bottom: 1rem;
+    }
+
+        .menu-card .btn {
+            padding: 1rem;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+            .menu-card .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            }
+</style>
