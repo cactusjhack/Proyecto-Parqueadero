@@ -20,9 +20,9 @@ namespace ASP_Presentacion.Pages.Ventanas
 
         public IActionResult OnGet()
         {
-            var rol = HttpContext.Session.GetString("Rol");
+            var usuario = HttpContext.Session.GetString("Usuario");
 
-            if (rol != "Administrador")
+            if (usuario != "andrea.gomez")
             {
                 return RedirectToPage("/AccesoDenegado");
             }
