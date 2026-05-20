@@ -29,7 +29,27 @@
                            class="btn btn-secondary"
                            asp-page-handler="BtGuardar" />
                 }
-            </div> 
+
+                @if (Model.Convenio == null && !Model.Borrando)
+                {
+                    <div class="mt-2">
+                        <button type="button" onclick="window.print()"
+                                class="btn btn-secondary">
+                            🖨️ Imprimir
+                        </button>
+
+                        <a href="https://localhost:7160/Convenios/ExportarExcel"
+                           class="btn btn-success">
+                            📊 Exportar Excel
+                        </a>
+
+                        <a href="https://localhost:7160/Convenios/ExportarPDF"
+                           class="btn btn-danger">
+                            📄 Exportar PDF
+                        </a>
+                    </div>
+                }
+            </div>
 
             @if (Model.Convenio != null)
             {

@@ -14,10 +14,26 @@
             </div>
 
             <div>
+
+                <div class="mt-2">
+                    <button type="button" onclick="window.print()"
+                            class="btn btn-secondary">
+                        🖨️ Imprimir
+                    </button>
+
                 <input type="submit" value="Refrescar"
                        class="btn btn-secondary"
                        asp-page-handler="BtRefrescar" />
 
+                <a href="https://localhost:7160/Auditorias/ExportarExcel"
+                   class="btn btn-secondary">
+                    📊 Exportar Excel
+                </a>
+
+                <a href="https://localhost:7160/Auditorias/ExportarPDF"
+                       class="btn btn-secondary">
+                        📄 Exportar PDF
+                </a>
             @if (Model.Auditoria != null)
             {
                 <input type="hidden" asp-for="@Model.Auditoria!.Id" />

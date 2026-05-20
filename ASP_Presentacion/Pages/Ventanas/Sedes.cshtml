@@ -23,11 +23,36 @@
                            class="btn btn-secondary"
                            asp-page-handler="BtNuevo" />
                 }
-                else 
+                else
                 {
                     <input type="submit" value="Guardar"
                            class="btn btn-secondary"
                            asp-page-handler="BtGuardar" />
+                }
+
+                @if (Model.Sede == null && !Model.Borrando)
+                {
+                    <div class="mt-2">
+                        <button type="button" onclick="window.print()"
+                                class="btn btn-secondary">
+                            🖨️ Imprimir
+                        </button>
+
+                        <a href="https://localhost:7160/Sedes/ExportarExcel"
+                           class="btn btn-success">
+                            📊 Exportar Excel
+                        </a>
+
+                        <a href="https://localhost:7160/Sedes/ExportarPDF"
+                           class="btn btn-danger">
+                            📄 Exportar PDF
+                        </a>
+
+                        <button type="button" onclick="verMapa()"
+                                class="btn btn-info">
+                            🗺️ Ver Mapa
+                        </button>
+                    </div>
                 }
             </div>
 
@@ -107,5 +132,44 @@
                 </table>
             }
         </form>
+        <div id="mapa" style="height:400px; margin-top:20px; display:none; border-radius:10px;"></div>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+        <script>
+            var mapaAbierto = false;
+            var mapa = null;
+
+            function verMapa() {
+                var div = document.getElementById('mapa');
+                if (!mapaAbierto) {
+                    div.style.display = 'block';
+                    if (!mapa) {
+                        mapa = L.map('mapa').setView([6.2442, -75.5812], 13); // Medellín
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa);
+
+                        // Marcadores de las sedes
+                        var sedes = [
+                            { nombre: "El Tesoro", lat: 6.1995, lng: -75.5756 },
+                            { nombre: "Santafe", lat: 6.2671, lng: -75.5664 },
+                            { nombre: "El Poblado", lat: 6.2087, lng: -75.5671 },
+                            { nombre: "Viva Envigado", lat: 6.1683, lng: -75.5833 },
+                            { nombre: "Premium Plaza", lat: 6.2344, lng: -75.5744 }
+                        ];
+
+                        sedes.forEach(function(sede) {
+                            L.marker([sede.lat, sede.lng])
+                             .addTo(mapa)
+                             .bindPopup("<b>" + sede.nombre + "</b>");
+                        });
+                    }
+                    mapaAbierto = true;
+                } else {
+                    div.style.display = 'none';
+                    mapaAbierto = false;
+                }
+            }
+        </script>
     </div>
 </center>

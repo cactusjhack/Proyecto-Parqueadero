@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="leaflet" Version="0.7.3" />
+    <PackageReference Include="QuestPDF" Version="2026.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ASP_Servicios\ASP_Servicios.csproj" />
     <ProjectReference Include="..\lib_aplicaciones\lib_aplicaciones.csproj" />
   </ItemGroup>
