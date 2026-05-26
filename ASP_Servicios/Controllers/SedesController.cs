@@ -43,6 +43,8 @@ namespace ASP_Servicios.Controllers
             ws.Cell(1, 4).Value = "Ciudad";
             ws.Cell(1, 5).Value = "Telefono";
             ws.Cell(1, 6).Value = "Activa";
+            ws.Cell(1, 7).Value = "Latitud";
+            ws.Cell(1, 8).Value = "Longitud";   
 
             // Datos
             for (int i = 0; i < sedes.Count; i++)
@@ -53,6 +55,8 @@ namespace ASP_Servicios.Controllers
                 ws.Cell(i + 2, 4).Value = sedes[i].Ciudad;
                 ws.Cell(i + 2, 5).Value = sedes[i].Telefono;
                 ws.Cell(i + 2, 6).Value = sedes[i].Activa;
+                ws.Cell(i + 2, 7).Value = sedes[i].Latitud;
+                ws.Cell(i + 2, 8).Value = sedes[i].Longitud;
             }
 
             using var stream = new MemoryStream();
@@ -90,6 +94,8 @@ namespace ASP_Servicios.Controllers
                             c.RelativeColumn();
                             c.RelativeColumn();
                             c.RelativeColumn();
+                            c.RelativeColumn();
+                            c.RelativeColumn();
                         });
 
                         // Encabezados
@@ -101,6 +107,8 @@ namespace ASP_Servicios.Controllers
                             header.Cell().Text("Ciudad").Bold();
                             header.Cell().Text("Teléfono").Bold();
                             header.Cell().Text("Activa").Bold();
+                            header.Cell().Text("Latitud").Bold();
+                            header.Cell().Text("Longitud").Bold();
                         });
 
                         // Datos
@@ -112,6 +120,8 @@ namespace ASP_Servicios.Controllers
                             table.Cell().Text(sede.Ciudad ?? "");
                             table.Cell().Text(sede.Telefono ?? "");
                             table.Cell().Text(sede.Activa ? "Sí" : "No");
+                            table.Cell().Text(sede.Latitud?.ToString() ?? "");
+                            table.Cell().Text(sede.Longitud?.ToString() ?? "");
                         }
                     });
 

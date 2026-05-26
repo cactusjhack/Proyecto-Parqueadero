@@ -24,7 +24,9 @@ CREATE TABLE Sedes (
     Direccion NVARCHAR(150),
     Ciudad    NVARCHAR(50),
     Telefono  NVARCHAR(20),
-    Activa    BIT DEFAULT 0
+    Activa    BIT DEFAULT 0,
+	Latitud   FLOAT,
+	Longitud  FLOAT
 );
 
 CREATE TABLE Cargos (
@@ -260,12 +262,12 @@ INSERT INTO Roles (Nombre, Descripcion) VALUES
 -- =============================================
 -- SEDES
 -- =============================================
-INSERT INTO Sedes (Nombre, Direccion, Ciudad, Telefono, Activa) VALUES
-('El Tesoro',    'Calle 7 Sur # 43-223',   'Medellin', '4441111', 1),
-('Santafe',      'Calle 185 # 45-03',      'Medellin', '4442222', 1),
-('El Poblado',   'Carrera 43A # 7-50',     'Medellin', '4443333', 1),
-('Viva Envigado','Calle 38 Sur # 43B-150', 'Envigado', '4444444', 1),
-('Premium Plaza','Calle 29 # 43A-98',      'Medellin', '4445555', 1);
+INSERT INTO Sedes (Nombre, Direccion, Ciudad, Telefono, Activa, Latitud, Longitud) VALUES
+('El Tesoro',    'Cra. 25a #1a Sur 45',   'Medellin', '4441111', 1, 6.197575713282872, -75.55821857458426),
+('Santafe',      'Carrera 43A, Cl. 7 Sur #170',      'Medellin', '4442222', 1, 6.197011985958832,-75.57439391876616),
+('Oviedo',   'Cra. 43A #6s-15',     'Medellin', '4443333', 1, 6.199203681862756,-75.57390544278232),
+('Viva Envigado','Cra. 48 #32B Sur - 139', 'Envigado', '4444444', 1, 6.176514737445258,-75.59090699484959),
+('Premium Plaza','Cra. 43A # 30-25, Av. El Poblado', 'Medellin', '4445555', 1, 6.229112074268121,-75.57084194650517);
  
 -- =============================================
 -- CARGOS

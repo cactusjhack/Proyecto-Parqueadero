@@ -74,8 +74,10 @@ namespace lib_aplicaciones.Entidades
             public string? Ciudad { get; set; }
             public string? Telefono { get; set; }
             public bool Activa { get; set; }
+            public double? Latitud { get; set; }
+            public double? Longitud { get; set; }
 
-            public List<Pisos>? Pisos { get; set; }
+        public List<Pisos>? Pisos { get; set; }
             public List<Convenios>? Convenios { get; set; }
     }
 

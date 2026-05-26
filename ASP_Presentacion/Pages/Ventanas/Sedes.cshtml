@@ -80,6 +80,14 @@
                         <label>Activa</label>
                         <input asp-for="@Model.Sede!.Activa" />
                     </div>
+                    <div class="form-group">
+                        <label>Latitud</label>
+                        <input class="form-control" asp-for="@Model.Sede!.Latitud" />
+                    </div>
+                    <div class="form-group">
+                        <label>Longitud</label>
+                        <input class="form-control" asp-for="@Model.Sede!.Longitud" />
+                    </div>
                 </div>
             }
 
@@ -108,6 +116,8 @@
                         <th>Ciudad</th>
                         <th>Teléfono</th>
                         <th>Activa</th>
+                        <th>Latitud</th>
+                        <th>Longitud</th>
                     </tr>
                     @foreach (var elemento in Model.Lista)
                     {
@@ -117,6 +127,8 @@
                             <td>@elemento.Ciudad</td>
                             <td>@elemento.Telefono</td>
                             <td>@elemento.Activa</td>
+                            <td>@elemento.Latitud</td>
+                            <td>@elemento.Longitud</td>
                             <td>
                                 <input type="submit" value="Modificar"
                                        asp-page-handler="BtModificar"
@@ -150,13 +162,16 @@
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapa);
 
                         // Marcadores de las sedes
-                        var sedes = [
-                            { nombre: "El Tesoro", lat: 6.1995, lng: -75.5756 },
-                            { nombre: "Santafe", lat: 6.2671, lng: -75.5664 },
-                            { nombre: "El Poblado", lat: 6.2087, lng: -75.5671 },
-                            { nombre: "Viva Envigado", lat: 6.1683, lng: -75.5833 },
-                            { nombre: "Premium Plaza", lat: 6.2344, lng: -75.5744 }
-                        ];
+            var sedes = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                Model.Lista?
+                .Where(s => s.Latitud.HasValue && s.Longitud.HasValue)
+                .Select(s => new {
+                    nombre = s.Nombre,
+                    lat = s.Latitud,
+                    lng = s.Longitud
+                })
+                ?? Enumerable.Empty<object>()
+            ));
 
                         sedes.forEach(function(sede) {
                             L.marker([sede.lat, sede.lng])
