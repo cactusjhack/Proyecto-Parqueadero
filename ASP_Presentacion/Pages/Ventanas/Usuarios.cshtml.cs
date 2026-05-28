@@ -20,7 +20,19 @@ namespace ASP_Presentacion.Pages.Ventanas
             iUsuariosNegocio = new UsuariosNegocio();
         }
 
-        public void OnGet() => OnPostBtRefrescar();
+        public IActionResult OnGet()
+        {
+            var usuario = HttpContext.Session.GetString("Usuario");
+
+            if (usuario != "andrea.gomez")
+            {
+                return RedirectToPage("/AccesoDenegado");
+            }
+
+            OnPostBtRefrescar();
+            return Page();
+
+        }
 
         public void OnPostBtRefrescar()
         {
